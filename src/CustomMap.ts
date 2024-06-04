@@ -1,6 +1,16 @@
 import * as L from "leaflet";
 import { User } from "./User";
 import { Company } from "./Company";
+
+// an interface to check if the objects can be showed on the map...
+// that means the object has location property or not ...
+interface Mappable {
+    location: {
+        lat:number;
+        lng:number;
+    },
+    locationText:string;
+}
 export class CustomMap {
     private Map: L.map;
     constructor() {
@@ -14,35 +24,16 @@ export class CustomMap {
         }).addTo(this.Map);
 
     }
-    addUserMarker = (user: User): void => {
-        var marker = L.marker([user.location.lat, user.location.lng]).addTo(this.Map);
+    addMarker = (mappable: Mappable): void => {
+        var marker = L.marker([mappable.location.lat, mappable.location.lng]).addTo(this.Map);
         var popup_layer = new L.layerGroup();
-        //marker.bindPopup('user loc').openPopup();
         let popup = new L.popup({offset:  new L.Point(0, -30)});
-   popup.setLatLng(L.latLng(user.location.lat, user.location.lng));
-   popup.setContent('User Loc');
-   popup.openPopup();
+        popup.setLatLng(L.latLng(mappable.location.lat, mappable.location.lng));
+        popup.setContent(mappable.locationText);
+        popup.openPopup();
         popup_layer.addLayer(popup);
         popup_layer.addTo(this.Map)
-        // this.popUps[0] = L.popup()
-        // .setLatLng([user.location.lat, user.location.lng])
-        // .setContent("User loc.")
-        // .openOn(this.Map);
+       
     }
-    addCompanyMarker = (company: Company): void => {
-        var otherMarker = L.marker([company.location.lat, company.location.lng]).addTo(this.Map);
-        var popup_layer = new L.layerGroup();
-        //marker.bindPopup('user loc').openPopup();
-        let popup = new L.popup({offset:  new L.Point(0, -30)});
-   popup.setLatLng(L.latLng(company.location.lat, company.location.lng));
-   popup.setContent('User Loc');
-   popup.openPopup();
-        popup_layer.addLayer(popup);
-        popup_layer.addTo(this.Map)
-        //otherMarker.bindPopup('company loc').openPopup();
-        // this.popUps[1] = L.popup()
-        //     .setLatLng([company.location.lat, company.location.lng])
-        //     .setContent("Company loc.")
-        //     .openOn(this.Map);
-    }
+    
 }

@@ -5,7 +5,8 @@ var User = (function () {
         this.location = {
             lat: faker.location.latitude(),
             lng: faker.location.longitude(),
-        };
+        },
+            this.locationText = 'User Location ...';
     }
     return User;
 }());

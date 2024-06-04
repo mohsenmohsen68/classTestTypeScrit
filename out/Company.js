@@ -7,6 +7,7 @@ var Company = (function () {
             lat: faker.location.latitude(),
             lng: faker.location.latitude()
         };
+        this.locationText = 'Company Location ...';
     }
     return Company;
 }());

@@ -6,6 +6,6 @@ console.log('my user : ', usr);
 var cmpny = new Company();
 console.log('company', cmpny);
 var myMap = new CustomMap();
-myMap.addUserMarker(usr);
-myMap.addCompanyMarker(cmpny);
+myMap.addMarker(usr);
+myMap.addMarker(cmpny);
 //# sourceMappingURL=index.js.map
