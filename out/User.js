@@ -7,6 +7,7 @@ var User = (function () {
             lng: faker.location.longitude(),
         },
             this.locationText = 'User Location ...';
+        this.popupColor = 'lightGreen';
     }
     return User;
 }());

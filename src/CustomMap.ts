@@ -1,15 +1,15 @@
 import * as L from "leaflet";
-import { User } from "./User";
-import { Company } from "./Company";
+
 
 // an interface to check if the objects can be showed on the map...
 // that means the object has location property or not ...
-interface Mappable {
+export interface Mappable {
     location: {
         lat:number;
         lng:number;
     },
     locationText:string;
+    popupColor:string;
 }
 export class CustomMap {
     private Map: L.map;
@@ -25,14 +25,19 @@ export class CustomMap {
 
     }
     addMarker = (mappable: Mappable): void => {
-        var marker = L.marker([mappable.location.lat, mappable.location.lng]).addTo(this.Map);
         var popup_layer = new L.layerGroup();
-        let popup = new L.popup({offset:  new L.Point(0, -30)});
+        let popup = new L.popup();
         popup.setLatLng(L.latLng(mappable.location.lat, mappable.location.lng));
-        popup.setContent(mappable.locationText);
-        popup.openPopup();
+        popup.setContent(mappable.locationText,{className: 'custom-style'});
+        // popup.style.backgroundColor = mappable.popupColor;
+        // popup.openPopup();
+        
+        // popup.getElement().children[0].style.background = mappable.popupColor;
         popup_layer.addLayer(popup);
         popup_layer.addTo(this.Map)
+        var marker = L.marker([mappable.location.lat, mappable.location.lng]).addTo(this.Map).bindPopup(popup).openPopup();;
+        marker.getPopup().getElement().children[0].style.background = mappable.popupColor;
+
        
     }
     

@@ -8,6 +8,7 @@ var Company = (function () {
             lng: faker.location.latitude()
         };
         this.locationText = 'Company Location ...';
+        this.popupColor = 'lightBlue';
     }
     return Company;
 }());
